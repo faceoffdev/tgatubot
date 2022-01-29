@@ -10,8 +10,8 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/.idea
-/.vscode
+/.idea/*
+.vscode
 .DS_Store
 .php-cs-fixer.cache
 _ide_helper.php
