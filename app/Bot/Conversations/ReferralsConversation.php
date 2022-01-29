@@ -26,7 +26,7 @@ class ReferralsConversation extends Conversation
                 'id'      => $user->id,
                 'percent' => config('app.percent_from_referrals'),
                 'count'   => (new ReferralQueries())->getCount($user->id),
-                'money'   => $user->computed_info->money_from_referrals,
+                'money'   => $user->computedInfo->money_from_referrals,
             ]),
             fn ()         => $this->bot->startConversation(new MainConversation()),
             ['parse_mode' => 'markdown', ...self::getKeyboardMenu()->toArray()]

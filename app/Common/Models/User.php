@@ -27,7 +27,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property bool                  $is_manager
  * @property Collection|Referral[] $referrals
  * @property int|null              $referrals_count
- * @property UserComputedInfo      $computed_info
+ * @property UserComputedInfo      $computedInfo
  *
  * @method static Builder|User newModelQuery()
  * @method static Builder|User newQuery()

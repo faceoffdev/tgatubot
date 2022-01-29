@@ -41,12 +41,12 @@ class WalletWithdrawConversation extends Conversation
         $user             = Auth::user();
         $minWithdrawMoney = config('app.min_withdraw_money');
 
-        if ($user->computed_info->money <= ($minWithdrawMoney * 0.01 + 7)) {
+        if ($user->computedInfo->money <= ($minWithdrawMoney * 0.01 + 7)) {
             $this->bot->sendRequest('answerCallbackQuery', [
                 'callback_query_id' => $this->callbackId,
                 'show_alert'        => true,
                 'text'              => __('errors.wallet.not_enough_money_withdraw', [
-                    'money'     => $user->computed_info->money,
+                    'money'     => $user->computedInfo->money,
                     'min_money' => $minWithdrawMoney,
                 ]),
             ]);
