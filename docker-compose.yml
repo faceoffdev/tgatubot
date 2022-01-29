@@ -1,0 +1,49 @@
+version: '3.8'
+
+networks:
+  proxy:
+    external:
+      name: proxy
+  workspace:
+    external:
+      name: workspace
+  local:
+    driver: bridge
+
+volumes:
+  libraries:
+    name: libraries
+    external: true
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: ./.docker/php/Dockerfile
+      args:
+        - GITHUB_TOKEN=${GITHUB_TOKEN}
+        - LIBRARY_PATH=${LIBRARY_PATH}
+    restart: always
+    networks:
+      - workspace
+      - local
+    volumes:
+      - ./:/var/www
+      - libraries:${LIBRARY_PATH}
+
+  nginx:
+    build:
+      context: .
+      dockerfile: ./.docker/nginx/Dockerfile
+    restart: always
+    volumes_from:
+      - php
+    depends_on:
+      - php
+    networks:
+      - proxy
+      - local
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.tgatubot.rule=HostRegexp(`{host:(^tgatubot.+)}`)
+      - traefik.http.services.tgatubot.loadbalancer.server.port=80
