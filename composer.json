@@ -1,18 +1,24 @@
 {
-    "name": "faceoff/stickerbot",
+    "name": "faceoff/tgatubot",
     "type": "project",
-    "description": "Telegram sticker bot",
+    "description": "Telegram tgatu bot",
     "keywords": [
         "telegram",
         "bot",
-        "sticker"
+        "tgatubot"
     ],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/faceoffdev/driver-telegram"
+        }
+    ],
     "require": {
         "php": "^8.1",
         "ext-mbstring": "*",
         "botman/botman": "^2.6",
-        "botman/driver-telegram": "^1.6",
+        "botman/driver-telegram": "dev-master",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.4",
