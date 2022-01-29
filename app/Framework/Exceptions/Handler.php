@@ -18,6 +18,7 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
+        ModelNotFoundException::class,
     ];
 
     /**
@@ -39,10 +40,6 @@ class Handler extends ExceptionHandler
      */
     public function report(Throwable $exception)
     {
-        if (app()->bound('sentry') && $this->shouldReport($exception)) {
-            app('sentry')->captureException($exception);
-        }
-
         parent::report($exception);
     }
 
@@ -62,5 +59,14 @@ class Handler extends ExceptionHandler
         }
 
         return parent::render($request, $e);
+    }
+
+    public function register()
+    {
+        $this->reportable(function (Throwable $e) {
+            if (app()->bound('sentry')) {
+                app('sentry')->captureException($e);
+            }
+        });
     }
 }
