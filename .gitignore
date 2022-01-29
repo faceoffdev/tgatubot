@@ -10,4 +10,11 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-/app/Console/Commands/Debug.php
+/.idea
+/.vscode
+.DS_Store
+.php-cs-fixer.cache
+_ide_helper.php
+.phpstorm.meta.php
+cghooks.lock
+app/Framework/Console/Commands/Debug.php
