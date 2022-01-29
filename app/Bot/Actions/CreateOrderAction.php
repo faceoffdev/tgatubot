@@ -3,7 +3,7 @@
 namespace App\Bot\Actions;
 
 use App\Common\Models\Order;
-use App\Common\Models\User;
+use App\Common\Models\UserComputedInfo;
 use Illuminate\Support\Facades\DB;
 use Psr\Log\LoggerInterface;
 use Throwable;
@@ -19,7 +19,7 @@ final class CreateOrderAction
         DB::beginTransaction();
 
         try {
-            User::whereId($userId)->decrement('money', $price);
+            UserComputedInfo::whereId($userId)->decrement('money', $price);
 
             $order = Order::create([
                 'user_id'      => $userId,

@@ -67,13 +67,13 @@ class OrderConversation extends Conversation
             return;
         }
 
-        if ($user->money < $price) {
+        if ($user->computed_info->money < $price) {
             $this->bot->sendRequest('answerCallbackQuery', [
                 'callback_query_id' => $answer->getCallbackId(),
                 'show_alert'        => true,
                 'text'              => __('errors.wallet.not_enough_money', [
                     'price' => $price,
-                    'money' => $user->money,
+                    'money' => $user->computed_info->money,
                 ]),
             ]);
 

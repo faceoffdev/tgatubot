@@ -79,8 +79,8 @@ class WalletTopUpConversation extends Conversation
         $user  = Auth::user();
         $price = config('app.price_pay_ref_url');
 
-        if ($user->money < $price) {
-            $text = __('errors.wallet.not_enough_money', ['price' => $price, 'money' => $user->money]);
+        if ($user->computed_info->money < $price) {
+            $text = __('errors.wallet.not_enough_money', ['price' => $price, 'money' => $user->computed_info->money]);
 
             if ($callbackId) {
                 $this->bot->sendRequest('answerCallbackQuery', [

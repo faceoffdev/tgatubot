@@ -2,7 +2,7 @@
 
 namespace App\Bot\Actions;
 
-use App\Common\Models\User;
+use App\Common\Models\UserComputedInfo;
 use App\Common\Models\WithdrawnMoney;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -14,7 +14,7 @@ final class WithdrawMoneyAction
         DB::beginTransaction();
 
         try {
-            User::whereId($userId)->decrement('money', $money);
+            UserComputedInfo::whereId($userId)->decrement('money', $money);
 
             $money -= $commission;
 

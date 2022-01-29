@@ -2,7 +2,7 @@
 
 namespace App\Order\Actions;
 
-use App\Common\Models\User;
+use App\Common\Models\UserComputedInfo;
 use App\Common\Queries\ReferralQueries;
 use Illuminate\Support\Facades\DB;
 use Psr\Log\LoggerInterface;
@@ -30,8 +30,8 @@ final class AddMoneyForReferralAction
         DB::beginTransaction();
 
         try {
-            User::whereId($referrerId)->increment('money', $money);
-            User::whereId($referrerId)->increment('money_from_referrals', $money);
+            UserComputedInfo::whereId($referrerId)->increment('money', $money);
+            UserComputedInfo::whereId($referrerId)->increment('money_from_referrals', $money);
 
             DB::commit();
 

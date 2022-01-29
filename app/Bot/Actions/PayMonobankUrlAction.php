@@ -3,7 +3,7 @@
 namespace App\Bot\Actions;
 
 use App\Common\Models\MonobankReferralUrl;
-use App\Common\Models\User;
+use App\Common\Models\UserComputedInfo;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -14,7 +14,7 @@ final class PayMonobankUrlAction
         DB::beginTransaction();
 
         try {
-            User::whereId($userId)->decrement('money', 5);
+            UserComputedInfo::whereId($userId)->decrement('money', 5);
             MonobankReferralUrl::insert([
                 'user_id' => $userId,
                 'url'     => $url,

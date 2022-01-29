@@ -4,7 +4,7 @@ namespace App\Order\Actions;
 
 use App\Common\Actions\SayTelegramAction;
 use App\Common\Models\Order;
-use App\Common\Models\User;
+use App\Common\Models\UserComputedInfo;
 use App\Order\DTOs\NotifyDTO;
 use App\Order\Queries\OrderQueries;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
@@ -71,7 +71,7 @@ final class SendErrorNotifyAction
             return false;
         }
 
-        User::whereId($order->user_id)->increment('money', $order->price);
+        UserComputedInfo::whereId($order->user_id)->increment('money', $order->price);
 
         return true;
     }

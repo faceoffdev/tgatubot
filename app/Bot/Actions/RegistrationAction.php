@@ -6,6 +6,7 @@ use App\Bot\Decorators\ChatTelegramUser;
 use App\Common\Models\Account;
 use App\Common\Models\Referral;
 use App\Common\Models\User;
+use App\Common\Models\UserComputedInfo;
 
 final class RegistrationAction
 {
@@ -25,6 +26,10 @@ final class RegistrationAction
                 'id'       => $chatId,
                 'name'     => $chatUser->getFullName(),
                 'username' => $chatUser->getUsername(),
+            ]);
+
+            UserComputedInfo::insert([
+                'id' => $chatId,
             ]);
 
             Account::insert([

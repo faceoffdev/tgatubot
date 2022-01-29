@@ -3,6 +3,7 @@
 namespace App\Monobank\Controllers;
 
 use App\Common\Models\User;
+use App\Common\Models\UserComputedInfo;
 use App\Monobank\Factories\StatementFactory;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
@@ -20,6 +21,6 @@ class MonobankController extends Controller
             return;
         }
 
-        User::whereId($dto->userId)->increment('money', $dto->amount);
+        UserComputedInfo::whereId($dto->userId)->increment('money', $dto->amount);
     }
 }
