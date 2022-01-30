@@ -3,6 +3,7 @@
 namespace App\Order\Presenters;
 
 use App\Common\Helper\QuestionHelper;
+use App\Common\Models\Question;
 use App\Order\Actions\SetOrderProcessingAction;
 use App\Order\Queries\OrderQueries;
 use App\Order\ResourceModels\OrderResource;
@@ -32,7 +33,7 @@ class OrderPresenter
         $resource->id        = $order->id;
         $resource->user      = new UserResource($order->account->login, $order->account->password);
         $resource->questions = $order->questions
-            ->map(fn ($question) => new QuestionResource(
+            ->map(fn (Question $question) => new QuestionResource(
                 $question->id,
                 $this->questionHelper->getUrl($question->id),
                 $question->delay
