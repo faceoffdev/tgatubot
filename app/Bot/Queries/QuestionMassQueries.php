@@ -65,7 +65,8 @@ class QuestionMassQueries
             $q
                 ->whereSemester($this->semester)
                 ->whereGroup($this->group)
-                ->whereDiscipline($this->discipline);
+                ->whereDiscipline($this->discipline)
+                ->where('sort', '>', 0);
         };
     }
 }
