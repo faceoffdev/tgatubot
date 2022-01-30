@@ -147,12 +147,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/faceoffdev/driver-telegram.git",
-                "reference": "e1600556d94eb8262cf7c8076f5a2c182684244f"
+                "reference": "b70a85b19362ee731b1300a1c8f72137207ae7bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/faceoffdev/driver-telegram/zipball/e1600556d94eb8262cf7c8076f5a2c182684244f",
-                "reference": "e1600556d94eb8262cf7c8076f5a2c182684244f",
+                "url": "https://api.github.com/repos/faceoffdev/driver-telegram/zipball/b70a85b19362ee731b1300a1c8f72137207ae7bd",
+                "reference": "b70a85b19362ee731b1300a1c8f72137207ae7bd",
                 "shasum": ""
             },
             "require": {
@@ -212,7 +212,7 @@
             "support": {
                 "source": "https://github.com/faceoffdev/driver-telegram/tree/master"
             },
-            "time": "2022-01-29T12:58:42+00:00"
+            "time": "2022-01-30T17:38:30+00:00"
         },
         {
             "name": "brick/math",
