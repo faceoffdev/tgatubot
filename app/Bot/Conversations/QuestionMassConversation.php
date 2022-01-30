@@ -46,12 +46,10 @@ class QuestionMassConversation extends Conversation
                     ]))
                         ->callbackData(QuestionMassButton::MODULE->value . $module),
                     KeyboardButton::create(__('buttons.questions.action.module_not_lab', [
-                        'num'      => $module,
                         'discount' => $this->discounts['module_not_lab'],
                     ]))
                         ->callbackData(QuestionMassButton::MODULE_NOT_LAB->value . $module),
                     KeyboardButton::create(__('buttons.questions.action.module_with_lab', [
-                        'num'      => $module,
                         'discount' => $this->discounts['module_with_lab'],
                     ]))
                         ->callbackData(QuestionMassButton::MODULE_WITH_LAB->value . $module)

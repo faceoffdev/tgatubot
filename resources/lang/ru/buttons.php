@@ -41,9 +41,9 @@ return [
 
         'action' => [
             'all'             => 'Все тесты (-:discount%)',
-            'module'          => ':num модуль (-:discount%)',
-            'module_not_lab'  => ':num - лекции (-:discount%)',
-            'module_with_lab' => ':num - лаб. (-:discount%)',
+            'module'          => ':num мод. (-:discount%)',
+            'module_not_lab'  => 'лекции (-:discount%)',
+            'module_with_lab' => 'лаб. (-:discount%)',
         ],
     ],
 
