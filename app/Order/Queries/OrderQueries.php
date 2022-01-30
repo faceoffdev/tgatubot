@@ -21,7 +21,6 @@ class OrderQueries
     {
         return Order::whereId($id)
             ->whereStatus(OrderStatus::PROCESSING->value)
-            ->with('questions:id,name')
             ->firstOrFail($columns);
     }
 }

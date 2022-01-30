@@ -34,9 +34,10 @@ final class SendSuccessNotifyAction
     public function execute(int $id)
     {
         $order         = $this->orderQueries->findById($id, ['id', 'user_id', 'question_ids', 'price']);
+        $questions     = $order->questions()->orderBy('sort')->get(['id', 'name']);
         $textQuestions = '';
 
-        foreach ($order->questions as $question) {
+        foreach ($questions as $question) {
             $textQuestions .= $this->getTextQuestion($question);
         }
 
