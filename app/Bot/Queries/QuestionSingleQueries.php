@@ -18,6 +18,7 @@ class QuestionSingleQueries
         return Question::whereSemester($this->semester)
             ->whereGroup($this->group)
             ->whereDiscipline($this->discipline)
+            ->orderBy('sort')
             ->paginate($limit, $columns, page: $page);
     }
 }
