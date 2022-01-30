@@ -32,7 +32,9 @@ class OrderPresenter
         $resource            = new OrderResource();
         $resource->id        = $order->id;
         $resource->user      = new UserResource($order->account->login, $order->account->password);
-        $resource->questions = $order->questions
+        $resource->questions = $order->questions()
+            ->orderBy('sort')
+            ->get(['id', 'delay'])
             ->map(fn (Question $question) => new QuestionResource(
                 $question->id,
                 $this->questionHelper->getUrl($question->id),

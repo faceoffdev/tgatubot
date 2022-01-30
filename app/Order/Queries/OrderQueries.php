@@ -14,7 +14,6 @@ class OrderQueries
             ->whereRaw('not exists (select null from orders as o where o.account_id = orders.account_id'
                 . ' and status = ?)', OrderStatus::PROCESSING->value)
             ->orderBy('id')
-            ->with('questions', fn ($q) => $q->select(['id', 'delay'])->orderBy('sort'))
             ->firstOrFail($columns);
     }
 
