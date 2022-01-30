@@ -17,8 +17,10 @@ use Psr\Log\LoggerInterface;
 
 class OrderConversation extends Conversation
 {
-    public function __construct(protected array $questionIds)
-    {
+    public function __construct(
+        protected array $questionIds,
+        protected int $discount = 0
+    ) {
     }
 
     public static function getKeyboard(): Keyboard
@@ -34,14 +36,26 @@ class OrderConversation extends Conversation
         $questions      = (new QuestionQueries())->findByIds($this->questionIds, ['id', 'name', 'price']);
         $price          = $questions->sum('price');
 
+        if ($this->discount) {
+            $price -= round(($this->discount / 100) * $price, 2);
+        }
+
         $text = '';
 
         foreach ($questions as $question) {
             $text .= sprintf('[• %s](%s)' . PHP_EOL, $question->name, $questionHelper->getUrl($question->id));
         }
 
+        $message = $this->discount
+            ? __('questions.order.pay_with_discount', [
+                'items'    => $text,
+                'price'    => $price,
+                'discount' => $this->discount,
+            ])
+            : __('questions.order.pay', ['items' => $text, 'price' => $price]);
+
         $this->ask(
-            __('questions.order.pay', ['items' => $text, 'price' => $price]),
+            $message,
             fn (Answer $answer) => $this->runHandler($answer, $price),
             ['parse_mode'       => 'markdown', ...self::getKeyboard()->toArray()]
         );

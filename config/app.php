@@ -126,6 +126,13 @@ return [
     'min_withdraw_money'     => env('MIN_WITHDRAW_MONEY', 20),
     'price_pay_ref_url'      => env('PRICE_PAY_REF_URL', 5),
 
+    'question_mass_discounts' => [
+        'all'             => env('QUESTION_MASS_DISCOUNT_ALL', 15),
+        'module'          => env('QUESTION_MASS_DISCOUNT_MODULE', 10),
+        'module_not_lab'  => env('QUESTION_MASS_DISCOUNT_MODULE_NOT_LAB', 5),
+        'module_with_lab' => env('QUESTION_MASS_LAB_DISCOUNT_MODULE_WITH', 5),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

@@ -21,8 +21,11 @@ class QuestionMassConversation extends Conversation
 {
     protected QuestionMassQueries $questionQueries;
 
+    protected array $discounts;
+
     public function __construct(protected int $semester, protected string $group, protected string $discipline)
     {
+        $this->discounts       = config('app.question_mass_discounts', []);
         $this->questionQueries = new QuestionMassQueries($semester, $group, $discipline);
     }
 
@@ -30,18 +33,27 @@ class QuestionMassConversation extends Conversation
     {
         $keyboard = (new Keyboard())
             ->addRow(
-                KeyboardButton::create(__('buttons.questions.action.all'))
+                KeyboardButton::create(__('buttons.questions.action.all', ['discount' => $this->discounts['all']]))
                     ->callbackData(QuestionMassButton::ALL->value)
             );
 
         foreach ($this->questionQueries->getModules() as $module) {
             $keyboard
                 ->addRow(
-                    KeyboardButton::create(__('buttons.questions.action.module', ['num' => $module]))
+                    KeyboardButton::create(__('buttons.questions.action.module', [
+                        'num'      => $module,
+                        'discount' => $this->discounts['module'],
+                    ]))
                         ->callbackData(QuestionMassButton::MODULE->value . $module),
-                    KeyboardButton::create(__('buttons.questions.action.module_not_lab', ['num' => $module]))
+                    KeyboardButton::create(__('buttons.questions.action.module_not_lab', [
+                        'num'      => $module,
+                        'discount' => $this->discounts['module_not_lab'],
+                    ]))
                         ->callbackData(QuestionMassButton::MODULE_NOT_LAB->value . $module),
-                    KeyboardButton::create(__('buttons.questions.action.module_with_lab', ['num' => $module]))
+                    KeyboardButton::create(__('buttons.questions.action.module_with_lab', [
+                        'num'      => $module,
+                        'discount' => $this->discounts['module_with_lab'],
+                    ]))
                         ->callbackData(QuestionMassButton::MODULE_WITH_LAB->value . $module)
                 );
         }
@@ -63,19 +75,23 @@ class QuestionMassConversation extends Conversation
         $value = $answer->isInteractiveMessageReply() ? $answer->getValue() : CommonButton::BACK->value;
 
         if ($value === QuestionMassButton::ALL->value) {
-            $ids = $this->questionQueries->getAllIds();
+            $ids      = $this->questionQueries->getAllIds();
+            $discount = $this->discounts['all'];
         } elseif (stripos($value, QuestionMassButton::MODULE_WITH_LAB->value) !== false) {
-            $ids = $this->questionQueries->getIdsByModuleWithLaboratories(IntHelper::parse($value));
+            $ids      = $this->questionQueries->getIdsByModuleWithLaboratories(IntHelper::parse($value));
+            $discount = $this->discounts['module_with_lab'];
         } elseif (stripos($value, QuestionMassButton::MODULE_NOT_LAB->value) !== false) {
-            $ids = $this->questionQueries->getIdsByModuleNotLaboratories(IntHelper::parse($value));
+            $ids      = $this->questionQueries->getIdsByModuleNotLaboratories(IntHelper::parse($value));
+            $discount = $this->discounts['module_not_lab'];
         } elseif (stripos($value, QuestionMassButton::MODULE->value) !== false) {
-            $ids = $this->questionQueries->getIdsByModule(IntHelper::parse($value));
+            $ids      = $this->questionQueries->getIdsByModule(IntHelper::parse($value));
+            $discount = $this->discounts['module'];
         } else {
             $this->bot->startConversation(new QuestionConversation($this->semester, $this->group, $this->discipline));
 
             return;
         }
 
-        $this->bot->startConversation(new OrderConversation($ids));
+        $this->bot->startConversation(new OrderConversation($ids, $discount));
     }
 }

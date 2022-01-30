@@ -52,5 +52,8 @@ return [
     'order' => [
         'pay' => '*Заказ*' . PHP_EOL . PHP_EOL . ':items' . PHP_EOL . 'Итого к оплате: *:price* UAH' . PHP_EOL . PHP_EOL
             . 'Нажмите Оплатить, если все верно указано.',
+        'pay_with_discount' => '*Заказ*' . PHP_EOL . PHP_EOL . ':items' . PHP_EOL . 'Итого к оплате: *:price* UAH'
+            . ', с учетом скидки *:discount%*' . PHP_EOL . PHP_EOL
+            . 'Нажмите Оплатить, если все верно указано.',
     ],
 ];

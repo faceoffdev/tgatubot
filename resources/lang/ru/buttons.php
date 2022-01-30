@@ -6,7 +6,7 @@ return [
         'support'      => 'Написать в поддержку',
         'add_question' => 'Добавить тест',
         'feedback'     => 'Сообщить о проблеме/улучшении',
-        'menu'         => 'Отменить',
+        'menu'         => '❌ Отменить',
     ],
 
     'main' => [
@@ -40,10 +40,10 @@ return [
         ],
 
         'action' => [
-            'all'             => 'Все тесты',
-            'module'          => ':num модуль',
-            'module_not_lab'  => ':num - лекционные',
-            'module_with_lab' => ':num - лабораторные',
+            'all'             => 'Все тесты (-:discount%)',
+            'module'          => ':num модуль (-:discount%)',
+            'module_not_lab'  => ':num - лекции (-:discount%)',
+            'module_with_lab' => ':num - лаб. (-:discount%)',
         ],
     ],
 
