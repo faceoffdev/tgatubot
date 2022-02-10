@@ -39,7 +39,7 @@ class QuestionSingleConversation extends Conversation
 
         foreach ($paginator->items() as $item) {
             $name = array_key_exists($item->id, $this->selectedIds) ? "✅ {$item->name}" : $item->name;
-            $name = StrHelper::strimwidth($name, 0, 35);
+            $name = StrHelper::strimwidth($name, 0, 37);
 
             $keyboard->addRow(KeyboardButton::create("{$name} - {$item->price}₴")->callbackData($item->id));
         }

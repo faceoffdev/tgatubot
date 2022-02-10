@@ -52,8 +52,7 @@ class QuestionQueries
             ->select(['discipline'])
             ->distinct()
             ->pluck('discipline')
-            ->map(fn ($value) => KeyboardButton::create(StrHelper::strimwidth($value, 0, 35))
-                ->callbackData($value))
+            ->map(fn ($value) => KeyboardButton::create($value)->callbackData($value))
             ->chunk(3);
     }
 }
