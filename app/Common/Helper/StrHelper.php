@@ -11,6 +11,6 @@ class StrHelper
             return $str;
         }
 
-        return substr($str, $start, $width) . '...';
+        return mb_substr($str, $start, $width) . '...';
     }
 }
