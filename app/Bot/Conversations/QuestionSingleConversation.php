@@ -10,6 +10,7 @@ namespace App\Bot\Conversations;
 
 use App\Bot\Enums\Buttons\CommonButton;
 use App\Bot\Queries\QuestionSingleQueries;
+use App\Common\Helper\StrHelper;
 use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
@@ -38,7 +39,7 @@ class QuestionSingleConversation extends Conversation
 
         foreach ($paginator->items() as $item) {
             $name = array_key_exists($item->id, $this->selectedIds) ? "✅ {$item->name}" : $item->name;
-            $name = mb_strimwidth($name, 0, 38, '...');
+            $name = StrHelper::strimwidth($name, 0, 38);
 
             $keyboard->addRow(KeyboardButton::create("{$name} - {$item->price}₴")->callbackData($item->id));
         }

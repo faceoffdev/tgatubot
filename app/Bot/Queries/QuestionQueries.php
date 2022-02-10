@@ -2,6 +2,7 @@
 
 namespace App\Bot\Queries;
 
+use App\Common\Helper\StrHelper;
 use App\Common\Models\Question;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 use Illuminate\Support\Collection;
@@ -51,7 +52,7 @@ class QuestionQueries
             ->select(['discipline'])
             ->distinct()
             ->pluck('discipline')
-            ->map(fn ($value) => KeyboardButton::create(mb_strimwidth($value, 0, 50, '...'))
+            ->map(fn ($value) => KeyboardButton::create(StrHelper::strimwidth($value, 0, 38))
                 ->callbackData($value))
             ->chunk(3);
     }
