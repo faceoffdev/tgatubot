@@ -7,7 +7,7 @@ class StrHelper
     // потому что undefined mb_strimwidth
     public static function strimwidth(string $str, int $start, int $width): string
     {
-        if ($width >= (strlen($str) + 2)) {
+        if ($width >= (mb_strlen($str) + 2)) {
             return $str;
         }
 
