@@ -51,8 +51,11 @@ class QuestionQueries
             ->select(['discipline'])
             ->distinct()
             ->pluck('discipline')
-            ->map(fn ($value) => KeyboardButton::create(mb_strimwidth($value, 0, 38, '...'))
-                ->callbackData($value))
+            ->map(function ($value) {
+                $text = mb_strimwidth($value, 0, 38, '...');
+
+                return KeyboardButton::create($text)->callbackData($value);
+            })
             ->chunk(3);
     }
 }
