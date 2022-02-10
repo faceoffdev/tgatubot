@@ -19,6 +19,7 @@ class QuestionSingleQueries
             ->whereGroup($this->group)
             ->whereDiscipline($this->discipline)
             ->orderBy('sort')
+            ->orderBy('name')
             ->paginate($limit, $columns, page: $page);
     }
 }
