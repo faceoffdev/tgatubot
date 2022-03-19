@@ -7,5 +7,6 @@ $botman = resolve('botman');
 
 $botman->hears('/start ([0-9]+)', BotManController::class . '@startConversation');
 $botman->hears('/start', BotManController::class . '@startConversation');
+$botman->hears('/c', fn ($bot) => $bot->startConversation(new \App\Bot\Conversations\CurrencyConversation()));
 
 $botman->fallback(fn ($bot) => $bot->startConversation(new MainConversation()));
