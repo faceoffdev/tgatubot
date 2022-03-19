@@ -13,7 +13,7 @@ class CurrencyConversation extends Conversation
 
     private Client $client;
 
-    public function __construct()
+    public function __construct(private float $num = 1)
     {
         $this->client = new Client();
     }
@@ -23,7 +23,8 @@ class CurrencyConversation extends Conversation
         $bankCurrency = $this->bankCurrency();
         $cryptoAmount = $this->cryptoAmount();
 
-        $amount = round((self::BASE_COUNT * $bankCurrency) / ($cryptoAmount - ($cryptoAmount * self::PERCENT)), 2);
+        $amount = $this->num;
+        $amount *= round((self::BASE_COUNT * $bankCurrency) / ($cryptoAmount - ($cryptoAmount * self::PERCENT)), 2);
 
         $this->say(
             "1 TON - {$amount} UAH" . PHP_EOL . PHP_EOL
