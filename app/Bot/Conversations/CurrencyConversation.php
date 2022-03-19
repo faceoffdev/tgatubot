@@ -7,26 +7,54 @@ use GuzzleHttp\Client;
 
 class CurrencyConversation extends Conversation
 {
-    public const PERCENT       = 0.01;
-    public const BANK_CURRENCY = 2958.58;
+    public const PERCENT = 0.01;
+
+    private Client $client;
+
+    public function __construct()
+    {
+        $this->client = new Client();
+    }
 
     public function run()
     {
-        $client = new Client();
+        $bankCurrency = $this->bankCurrency();
+        $cryptoAmount = $this->cryptoAmount();
 
-        $response = $client->post('https://api.neocrypto.net/api/purchase/request/', [
+        $amount = $bankCurrency / ($cryptoAmount - ($cryptoAmount * self::PERCENT));
+
+        $this->say(
+            "1 TON - {$amount} UAH" . PHP_EOL . PHP_EOL
+            . "Курс privatbank: $bankCurrency UAH" . PHP_EOL
+            . 'Курс neocrypto: ' . round(100 / $cryptoAmount, 3) . ' USD'
+        );
+    }
+
+    private function bankCurrency(): float
+    {
+        $response = $this->client->get('https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11');
+        $result   = json_decode($response->getBody(), true);
+
+        foreach ($result as $currency) {
+            if ($currency['ccy'] === 'USD') {
+                return $currency['sale'];
+            }
+        }
+
+        return 1;
+    }
+
+    private function cryptoAmount(): float
+    {
+        $response = $this->client->post('https://api.neocrypto.net/api/purchase/request/', [
             'json' => [
                 'fiat_amount'     => 100,
                 'fiat_currency'   => 'USD',
                 'crypto_currency' => 'TON',
             ],
         ]);
-
         $result = json_decode($response->getBody(), true);
 
-        $cryptoAmount = $result['crypto_amount'];
-        $amount       = self::BANK_CURRENCY / ($cryptoAmount - ($cryptoAmount * self::PERCENT));
-
-        $this->say("1 TON - {$amount} UAH");
+        return $result['crypto_amount'];
     }
 }
