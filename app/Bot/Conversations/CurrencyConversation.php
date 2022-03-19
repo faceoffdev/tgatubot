@@ -9,6 +9,8 @@ class CurrencyConversation extends Conversation
 {
     public const PERCENT = 0.01;
 
+    public const BASE_COUNT = 100;
+
     private Client $client;
 
     public function __construct()
@@ -21,12 +23,12 @@ class CurrencyConversation extends Conversation
         $bankCurrency = $this->bankCurrency();
         $cryptoAmount = $this->cryptoAmount();
 
-        $amount = $bankCurrency / ($cryptoAmount - ($cryptoAmount * self::PERCENT));
+        $amount = (self::BASE_COUNT * $bankCurrency) / ($cryptoAmount - ($cryptoAmount * self::PERCENT));
 
         $this->say(
             "1 TON - {$amount} UAH" . PHP_EOL . PHP_EOL
             . "Курс privatbank: $bankCurrency UAH" . PHP_EOL
-            . 'Курс neocrypto: ' . round(100 / $cryptoAmount, 3) . ' USD'
+            . 'Курс neocrypto: ' . round(self::BASE_COUNT / $cryptoAmount, 3) . ' USD'
         );
     }
 
@@ -48,7 +50,7 @@ class CurrencyConversation extends Conversation
     {
         $response = $this->client->post('https://api.neocrypto.net/api/purchase/request/', [
             'json' => [
-                'fiat_amount'     => 100,
+                'fiat_amount'     => self::BASE_COUNT,
                 'fiat_currency'   => 'USD',
                 'crypto_currency' => 'TON',
             ],
