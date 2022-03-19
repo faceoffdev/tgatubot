@@ -27,7 +27,7 @@ class CurrencyConversation extends Conversation
         $amount *= round((self::BASE_COUNT * $bankCurrency) / ($cryptoAmount - ($cryptoAmount * self::PERCENT)), 2);
 
         $this->say(
-            "1 TON - {$amount} UAH" . PHP_EOL . PHP_EOL
+            "{$this->num} TON - {$amount} UAH" . PHP_EOL . PHP_EOL
             . "Курс privatbank: $bankCurrency UAH" . PHP_EOL
             . 'Курс neocrypto: ' . round(self::BASE_COUNT / $cryptoAmount, 3) . ' USD'
         );
