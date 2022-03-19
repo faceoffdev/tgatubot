@@ -23,7 +23,7 @@ class CurrencyConversation extends Conversation
         $bankCurrency = $this->bankCurrency();
         $cryptoAmount = $this->cryptoAmount();
 
-        $amount = (self::BASE_COUNT * $bankCurrency) / ($cryptoAmount - ($cryptoAmount * self::PERCENT));
+        $amount = round((self::BASE_COUNT * $bankCurrency) / ($cryptoAmount - ($cryptoAmount * self::PERCENT)), 2);
 
         $this->say(
             "1 TON - {$amount} UAH" . PHP_EOL . PHP_EOL
