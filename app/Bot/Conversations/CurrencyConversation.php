@@ -28,23 +28,14 @@ class CurrencyConversation extends Conversation
 
         $this->say(
             "{$this->num} TON - {$amount} UAH" . PHP_EOL . PHP_EOL
-            . "Курс privatbank: $bankCurrency UAH" . PHP_EOL
+            . "Курс pumb: $bankCurrency UAH" . PHP_EOL
             . 'Курс neocrypto: ' . round(self::BASE_COUNT / $cryptoAmount, 3) . ' USD'
         );
     }
 
     private function bankCurrency(): float
     {
-        $response = $this->client->get('https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11');
-        $result   = json_decode($response->getBody(), true);
-
-        foreach ($result as $currency) {
-            if ($currency['ccy'] === 'USD') {
-                return $currency['sale'];
-            }
-        }
-
-        return 1;
+        return 29.9;
     }
 
     private function cryptoAmount(): float
