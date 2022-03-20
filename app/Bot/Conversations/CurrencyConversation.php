@@ -58,13 +58,13 @@ class CurrencyConversation extends Conversation
         return $result['crypto_amount'];
     }
 
-    private function tonCurrency()
+    private function tonCurrency(): float
     {
         $id       = 'the-open-network';
         $currency = 'uah';
 
-        $response = $this->client->post('https://api.coingecko.com/api/v3/simple/price', [
-            'json' => [
+        $response = $this->client->get('https://api.coingecko.com/api/v3/simple/price', [
+            'query' => [
                 'ids'           => $id,
                 'vs_currencies' => $currency,
             ],
