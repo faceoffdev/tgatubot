@@ -45,7 +45,7 @@ class MainConversation extends Conversation
             MainButton::MARKET->value    => $this->bot->startConversation(new QuestionConversation()),
             MainButton::REFERRALS->value => $this->bot->startConversation(new ReferralsConversation()),
             MainButton::SETTINGS->value  => $this->bot->startConversation(new SettingsConversation()),
-            default                      => $this->bot->listen(),
+            default                      => false,
         };
     }
 }
