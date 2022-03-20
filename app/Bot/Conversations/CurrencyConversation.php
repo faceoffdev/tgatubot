@@ -31,10 +31,10 @@ class CurrencyConversation extends Conversation
         $this->say(
             "Стоимость *{$this->num}* TON - *{$amount}* UAH"
             . ' | [Купить](https://t.me/CryptoBot?start=r-206218-market)' . PHP_EOL . PHP_EOL
-            . "Курс pumb: $bankCurrency UAH" . PHP_EOL
-            . "Курс Toncoin(coingecko): $tonCurrency UAH" . PHP_EOL
-            . 'Курс neocrypto: ' . round(self::BASE_COUNT / $cryptoAmount, 3) . ' USD' . PHP_EOL . PHP_EOL
-            . 'Обновлено: ' . Carbon::now()->format('H:i d.m.Y'),
+            . "Курс pumb: *$bankCurrency* UAH" . PHP_EOL
+            . "Курс Toncoin (coingecko): *$tonCurrency* UAH" . PHP_EOL
+            . 'Курс neocrypto: *' . round(self::BASE_COUNT / $cryptoAmount, 3) . '* USD' . PHP_EOL . PHP_EOL
+            . 'Обновлено: ' . Carbon::now('Europe/Moscow')->format('H:i d.m.Y'),
             ['parse_mode' => 'markdown']
         );
     }
