@@ -41,7 +41,7 @@ class CurrencyConversation extends Conversation
 
     private function bankCurrency(): float
     {
-        return 29.9;
+        return 30.5;
     }
 
     private function cryptoAmount(): float
