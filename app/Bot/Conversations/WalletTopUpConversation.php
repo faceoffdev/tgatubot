@@ -43,7 +43,6 @@ class WalletTopUpConversation extends Conversation
         $q = __('questions.wallet.top_up', [
             'send_url' => $configMonobank['send_url'],
             'id'       => $userId,
-            'card'     => $configMonobank['card'],
         ]);
 
         if ($monobankUrl) {
