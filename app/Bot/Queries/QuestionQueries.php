@@ -2,7 +2,6 @@
 
 namespace App\Bot\Queries;
 
-use App\Common\Helper\StrHelper;
 use App\Common\Models\Question;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
 use Illuminate\Support\Collection;

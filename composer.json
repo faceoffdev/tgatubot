@@ -62,6 +62,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
+        "php-cs-fixer": "php-cs-fixer fix --diff --config=.php-cs-fixer.dist.php",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"

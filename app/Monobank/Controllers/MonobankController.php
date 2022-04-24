@@ -2,6 +2,7 @@
 
 namespace App\Monobank\Controllers;
 
+use App\Common\Actions\SayTelegramAction;
 use App\Common\Models\User;
 use App\Common\Models\UserComputedInfo;
 use App\Monobank\Factories\StatementFactory;
@@ -10,7 +11,7 @@ use Illuminate\Routing\Controller;
 
 class MonobankController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, SayTelegramAction $telegramAction)
     {
         $dto = StatementFactory::fromRequest($request);
 
@@ -22,5 +23,7 @@ class MonobankController extends Controller
         }
 
         UserComputedInfo::whereId($dto->userId)->increment('money', $dto->amount);
+
+        $telegramAction->execute(__('success.wallet.pay', ['amount' => $dto->amount]), $dto->userId);
     }
 }
