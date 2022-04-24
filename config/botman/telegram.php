@@ -19,4 +19,6 @@ return [
     'hideInlineKeyboard' => true,
 
     'support_url' => env('TELEGRAM_SUPPORT_URL', 'https://t.me/faceoff'),
+
+    'info' => env('TELEGRAM_INFO', '934694006'),
 ];

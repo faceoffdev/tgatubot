@@ -13,6 +13,8 @@ final class SayTelegramAction
 
     public function execute(string $text, int $receptionId, $params = []): void
     {
-        $this->bot->say($text, $receptionId, TelegramDriver::class, $params);
+        $receptionIds = [$receptionId, config('botman.telegram.info')];
+
+        $this->bot->say($text, $receptionIds, TelegramDriver::class, $params);
     }
 }
