@@ -13,6 +13,9 @@ use Psr\Log\LoggerInterface;
 
 final class SendErrorNotifyAction
 {
+    public const ALLOWED_CODES = [1, 2, 3, 4, 5, 6];
+    public const REFUND_CODES  = [2, 5, 6];
+
     private OrderQueries $orderQueries;
 
     public function __construct(
@@ -56,23 +59,21 @@ final class SendErrorNotifyAction
     {
         $base = 'errors.order.messages.';
 
-        $tpl = match ($code) {
-            1       => $base . 1,
-            2       => $base . 2,
-            default => $base . 'default'
-        };
+        if (in_array($code, self::ALLOWED_CODES)) {
+            return __($base . $code);
+        }
 
-        return __($tpl);
+        return __($base . 'default');
     }
 
     private function refund(int $code, Order $order): bool
     {
-        if ($code === 1) {
-            return false;
+        if (in_array($code, self::REFUND_CODES)) {
+            UserComputedInfo::whereId($order->user_id)->increment('money', $order->price);
+
+            return true;
         }
 
-        UserComputedInfo::whereId($order->user_id)->increment('money', $order->price);
-
-        return true;
+        return false;
     }
 }
