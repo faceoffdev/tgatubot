@@ -13,8 +13,8 @@ use Psr\Log\LoggerInterface;
 
 final class SendErrorNotifyAction
 {
-    public const ALLOWED_CODES = [1, 2, 3, 4, 5, 6];
-    public const REFUND_CODES  = [2, 5, 6];
+    public const ALLOWED_CODES = [1, 2, 3, 4, 5, 6, 7];
+    public const REFUND_CODES  = [2, 5, 6, 7];
 
     private OrderQueries $orderQueries;
 
