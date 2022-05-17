@@ -8,13 +8,11 @@ use GuzzleHttp\Client;
 
 class CurrencyConversation extends Conversation
 {
-    public const PERCENT = 0.01;
-
-    public const BASE_COUNT = 100;
+    public const MIN_FIAT_AMOUNT = 1000;
 
     private Client $client;
 
-    public function __construct(private float $num = 1)
+    public function __construct(private float $percent = 15)
     {
         $this->client = new Client();
     }
@@ -22,46 +20,38 @@ class CurrencyConversation extends Conversation
     public function run()
     {
         $tonCurrency  = $this->tonCurrency();
-        $bankCurrency = $this->bankCurrency();
         $cryptoAmount = $this->cryptoAmount();
 
-        $amount = $this->num;
-        $amount *= round((self::BASE_COUNT * $bankCurrency) / ($cryptoAmount - ($cryptoAmount * self::PERCENT)), 2);
+        $percent = ($tonCurrency + ($tonCurrency * ($this->percent / 100))) / $cryptoAmount * 100;
 
         $this->say(
-            "Стоимость *{$this->num}* TON - *{$amount}* UAH"
+            "Прибыль: $percent%"
             . ' | [Купить](https://t.me/CryptoBot?start=r-206218-market)' . PHP_EOL . PHP_EOL
-            . "Курс pumb: *$bankCurrency* UAH" . PHP_EOL
-            . "Курс Toncoin (coingecko): *$tonCurrency* UAH" . PHP_EOL
-            . 'Курс neocrypto: *' . round(self::BASE_COUNT / $cryptoAmount, 3) . '* USD' . PHP_EOL . PHP_EOL
+            . "Курс Toncoin (coingecko): *$tonCurrency* RUB" . PHP_EOL
+            . "Курс Toncoin (neocrypto): *$cryptoAmount* RUB" . PHP_EOL . PHP_EOL
             . 'Обновлено: ' . Carbon::now('Europe/Moscow')->format('H:i d.m.Y'),
             ['parse_mode' => 'markdown']
         );
-    }
-
-    private function bankCurrency(): float
-    {
-        return 29.9549;
     }
 
     private function cryptoAmount(): float
     {
         $response = $this->client->post('https://api.neocrypto.net/api/purchase/request/', [
             'json' => [
-                'fiat_amount'     => self::BASE_COUNT,
-                'fiat_currency'   => 'USD',
+                'fiat_amount'     => self::MIN_FIAT_AMOUNT,
+                'fiat_currency'   => 'RUB',
                 'crypto_currency' => 'TON',
             ],
         ]);
         $result = json_decode($response->getBody(), true);
 
-        return $result['crypto_amount'];
+        return round($result['crypto_amount'] / self::MIN_FIAT_AMOUNT, 2);
     }
 
     private function tonCurrency(): float
     {
         $id       = 'the-open-network';
-        $currency = 'uah';
+        $currency = 'rub';
 
         $response = $this->client->get('https://api.coingecko.com/api/v3/simple/price', [
             'query' => [
