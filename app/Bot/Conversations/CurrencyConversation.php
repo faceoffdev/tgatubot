@@ -24,16 +24,15 @@ class CurrencyConversation extends Conversation
         $tonCurrency  = $this->tonCurrency();
         $cryptoAmount = $this->cryptoAmount();
 
-        $tonCurrencyWithPercent = ($tonCurrency * ($this->percent / 100)) + $tonCurrency;
-        $tonCurrencyWithSum     = $tonCurrencyWithPercent - $cryptoAmount;
-        $percent                = $tonCurrencyWithPercent / $cryptoAmount * 100;
+        $tonCurrencyWithPercent = round(($tonCurrency * ($this->percent / 100)) + $tonCurrency, 2);
+        $tonCurrencyWithSum     = round($tonCurrencyWithPercent - $cryptoAmount, 2);
 
         $this->say(
-            "При продаже по $tonCurrencyWithPercent RUB ($this->percent%), прибыль составляет $tonCurrencyWithSum ($percent%) RUB" . PHP_EOL . PHP_EOL
+            "При продаже по *$tonCurrencyWithPercent* RUB ($this->percent%), прибыль с 1 TON составляет *$tonCurrencyWithSum* RUB" . PHP_EOL . PHP_EOL
             . "Курс Toncoin (coingecko): *$tonCurrency* RUB" . PHP_EOL
             . "Курс Toncoin (neocrypto): *$cryptoAmount* RUB" . PHP_EOL . PHP_EOL
-            . '[Купить](https://t.me/CryptoBot?start=r-206218-market)'
-            . ' | Обновлено: ' . Carbon::now('Europe/Moscow')->format('H:i d.m.Y'),
+            . 'Обновлено: ' . Carbon::now('Europe/Moscow')->format('H:i d.m.Y')
+            . ' | [Купить](https://t.me/CryptoBot?start=r-206218-market)',
             ['parse_mode' => 'markdown']
         );
     }
