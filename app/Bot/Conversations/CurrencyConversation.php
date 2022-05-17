@@ -14,6 +14,8 @@ class CurrencyConversation extends Conversation
 
     public function __construct(private float $percent = 15)
     {
+        $this->percent++;
+
         $this->client = new Client();
     }
 
@@ -22,14 +24,16 @@ class CurrencyConversation extends Conversation
         $tonCurrency  = $this->tonCurrency();
         $cryptoAmount = $this->cryptoAmount();
 
-        $percent = ($tonCurrency + ($tonCurrency * ($this->percent / 100))) / $cryptoAmount * 100;
+        $tonCurrencyWithPercent = ($tonCurrency * ($this->percent / 100)) + $tonCurrency;
+        $tonCurrencyWithSum     = $tonCurrencyWithPercent - $cryptoAmount;
+        $percent                = $tonCurrencyWithPercent / $cryptoAmount * 100;
 
         $this->say(
-            "Прибыль: $percent%"
-            . ' | [Купить](https://t.me/CryptoBot?start=r-206218-market)' . PHP_EOL . PHP_EOL
+            "При продаже по $tonCurrencyWithPercent RUB ($this->percent%), прибыль составляет $tonCurrencyWithSum ($percent%) RUB" . PHP_EOL . PHP_EOL
             . "Курс Toncoin (coingecko): *$tonCurrency* RUB" . PHP_EOL
             . "Курс Toncoin (neocrypto): *$cryptoAmount* RUB" . PHP_EOL . PHP_EOL
-            . 'Обновлено: ' . Carbon::now('Europe/Moscow')->format('H:i d.m.Y'),
+            . '[Купить](https://t.me/CryptoBot?start=r-206218-market)'
+            . ' | Обновлено: ' . Carbon::now('Europe/Moscow')->format('H:i d.m.Y'),
             ['parse_mode' => 'markdown']
         );
     }
@@ -45,7 +49,7 @@ class CurrencyConversation extends Conversation
         ]);
         $result = json_decode($response->getBody(), true);
 
-        return round($result['crypto_amount'] / self::MIN_FIAT_AMOUNT, 2);
+        return round(self::MIN_FIAT_AMOUNT / $result['crypto_amount'], 2);
     }
 
     private function tonCurrency(): float
