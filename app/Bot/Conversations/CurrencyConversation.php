@@ -29,8 +29,8 @@ class CurrencyConversation extends Conversation
 
         $this->say(
             "При продаже по *$tonCurrencyWithPercent* RUB ($this->percent%), прибыль с 1 TON составляет *$tonCurrencyWithSum* RUB" . PHP_EOL . PHP_EOL
-            . "Курс Toncoin (coingecko): *$tonCurrency* RUB" . PHP_EOL
-            . "Курс Toncoin (neocrypto): *$cryptoAmount* RUB" . PHP_EOL . PHP_EOL
+            . "Курс на coingecko: *$tonCurrency* RUB" . PHP_EOL
+            . "Курс на neocrypto: *$cryptoAmount* RUB" . PHP_EOL . PHP_EOL
             . 'Обновлено: ' . Carbon::now('Europe/Moscow')->format('H:i d.m.Y')
             . ' | [Купить](https://t.me/CryptoBot?start=r-206218-market)',
             ['parse_mode' => 'markdown']
