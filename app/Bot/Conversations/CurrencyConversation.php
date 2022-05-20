@@ -26,8 +26,8 @@ class CurrencyConversation extends Conversation
         $cryptoAmount = $this->cryptoAmount();
 
         $minProfitPercent       = self::MIN_PROFIT_PERCENT;
-        $cryptoAmountWithProfit = $tonCurrency + ($tonCurrency * ($minProfitPercent / 100));
-        $profit                 = ($cryptoAmountWithProfit - $cryptoAmountWithProfit * (self::BOT_PERCENT / 100)) - $cryptoAmount;
+        $cryptoAmountWithProfit = round($tonCurrency + ($tonCurrency * ($minProfitPercent / 100)), 2);
+        $profit                 = round(($cryptoAmountWithProfit - $cryptoAmountWithProfit * (self::BOT_PERCENT / 100)) - $cryptoAmount, 2);
 
         $this->say(
             "Продажа по $cryptoAmountWithProfit RUB ($minProfitPercent%) принесет $profit RUB за 1 TON" . PHP_EOL . PHP_EOL
