@@ -10,12 +10,13 @@ class CurrencyConversation extends Conversation
 {
     public const MIN_FIAT_AMOUNT = 1000;
 
+    public const BOT_PERCENT        = 1;
+    public const MIN_PROFIT_PERCENT = 14;
+
     private Client $client;
 
-    public function __construct(private float $percent = 15)
+    public function __construct()
     {
-        $this->percent++;
-
         $this->client = new Client();
     }
 
@@ -24,11 +25,12 @@ class CurrencyConversation extends Conversation
         $tonCurrency  = $this->tonCurrency();
         $cryptoAmount = $this->cryptoAmount();
 
-        $tonCurrencyWithPercent = round(($tonCurrency * ($this->percent / 100)) + $tonCurrency, 2);
-        $tonCurrencyWithSum     = round($tonCurrencyWithPercent - $cryptoAmount, 2);
+        $minProfitPercent       = self::MIN_PROFIT_PERCENT;
+        $cryptoAmountWithProfit = $cryptoAmount + ($cryptoAmount * ($minProfitPercent / 100));
+        $profit                 = ($cryptoAmountWithProfit - $cryptoAmountWithProfit * (self::BOT_PERCENT / 100)) - $tonCurrency;
 
         $this->say(
-            "При продаже по *$tonCurrencyWithPercent* RUB ($this->percent%), прибыль с 1 TON составляет *$tonCurrencyWithSum* RUB" . PHP_EOL . PHP_EOL
+            "Продажа по $cryptoAmountWithProfit RUB ($minProfitPercent%) принесет $profit RUB за 1 TON" . PHP_EOL . PHP_EOL
             . "Курс на coingecko: *$tonCurrency* RUB" . PHP_EOL
             . "Курс на neocrypto: *$cryptoAmount* RUB" . PHP_EOL . PHP_EOL
             . 'Обновлено: ' . Carbon::now('Europe/Moscow')->format('H:i d.m.Y')
