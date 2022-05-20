@@ -30,7 +30,7 @@ class CurrencyConversation extends Conversation
         $profit                 = round(($cryptoAmountWithProfit - $cryptoAmountWithProfit * (self::BOT_PERCENT / 100)) - $cryptoAmount, 2);
 
         $this->say(
-            "Продажа по $cryptoAmountWithProfit RUB ($minProfitPercent%) принесет $profit RUB за 1 TON" . PHP_EOL . PHP_EOL
+            "Продажа по *$cryptoAmountWithProfit* RUB ($minProfitPercent%) принесет *$profit* RUB за 1 TON" . PHP_EOL . PHP_EOL
             . "Курс на coingecko: *$tonCurrency* RUB" . PHP_EOL
             . "Курс на neocrypto: *$cryptoAmount* RUB" . PHP_EOL . PHP_EOL
             . 'Обновлено: ' . Carbon::now('Europe/Moscow')->format('H:i d.m.Y')
