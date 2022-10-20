@@ -112,6 +112,7 @@ class WalletWithdrawConversation extends Conversation
                         'num'        => $id,
                         'money'      => $this->withdrawMoney - $commission,
                         'commission' => $commission,
+                        'card'       => $card,
                     ]),
                     ['parse_mode' => 'markdown', ...self::getSupportKeyboard()->toArray()]
                 );
