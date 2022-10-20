@@ -6,10 +6,9 @@ use App\Common\Models\MonobankReferralUrl;
 
 class MonobankReferralUrlQueries
 {
-    public function getLastUrl(int $excludeUserId): string
+    public function getLastUrl(array $columns = ['*']): MonobankReferralUrl
     {
-        return (string) MonobankReferralUrl::where('user_id', '!=', $excludeUserId)
-            ->orderBy('id', 'desc')
-            ->value('url');
+        return MonobankReferralUrl::orderBy('id', 'desc')
+            ->first($columns);
     }
 }
