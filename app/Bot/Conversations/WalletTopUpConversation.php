@@ -40,7 +40,7 @@ class WalletTopUpConversation extends Conversation
         $configMonobank = config('services.monobank');
         $monobankUrl    = (new MonobankReferralUrlQueries())->getLastUrl();
 
-        $showUrl = $monobankUrl->user_id != $userId;
+        $showUrl = (int) $monobankUrl->user_id !== $userId;
 
         $q = __('questions.wallet.top_up', [
             'send_url' => $configMonobank['send_url'],
@@ -55,8 +55,8 @@ class WalletTopUpConversation extends Conversation
         }
 
         $keyboard = $showUrl
-            ? self::getKeyboard()
-            : self::getKeyboardWithUrl();
+            ? self::getKeyboardWithUrl()
+            : self::getKeyboard();
 
         $this->ask(
             $q,
