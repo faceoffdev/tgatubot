@@ -82,7 +82,7 @@ class WalletWithdrawConversation extends Conversation
             return;
         }
 
-        if (Auth::user()->money <= $this->withdrawMoney + $this->getCommission()) {
+        if (Auth::user()->computedInfo->money <= ($this->withdrawMoney + $this->getCommission())) {
             $this->bot->reply(__('errors.validation.max_money'));
 
             $this->run();
