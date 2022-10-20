@@ -94,7 +94,7 @@ class WalletWithdrawConversation extends Conversation
     private function askCard()
     {
         return $this->ask(
-            __('questions.wallet.ask_card'),
+            __('questions.wallet.ask_card', ['commission' => $this->getCommission()]),
             fn (Answer $answer) => $this->cardHandler($answer),
             self::getKeyboard()->toArray()
         );
