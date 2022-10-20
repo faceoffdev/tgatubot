@@ -108,7 +108,7 @@ class WalletWithdrawConversation extends Conversation
 
             if ($id = (new WithdrawMoneyAction())->execute(Auth::id(), $card, $this->withdrawMoney, $commission)) {
                 $this->bot->reply(
-                    __('success.wallet.withdraw', [
+                    __('success.wallet.withdraw_money', [
                         'num'        => $id,
                         'money'      => $this->withdrawMoney - $commission,
                         'commission' => $commission,
