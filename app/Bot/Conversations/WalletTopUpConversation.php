@@ -36,26 +36,32 @@ class WalletTopUpConversation extends Conversation
 
     public function run()
     {
-        $userId         = Auth::id();
+        $userId         = (int) Auth::id();
         $configMonobank = config('services.monobank');
-        $monobankUrl = (new MonobankReferralUrlQueries())->getLastUrl();
+        $monobankUrl    = (new MonobankReferralUrlQueries())->getLastUrl();
+
+        $showUrl = $monobankUrl->user_id != $userId;
 
         $q = __('questions.wallet.top_up', [
             'send_url' => $configMonobank['send_url'],
             'id'       => $userId,
         ]);
 
-        if ($monobankUrl->url && $monobankUrl->user_id !== $userId) {
+        if ($showUrl && $monobankUrl->url) {
             $q .= __('questions.wallet.sponsor', [
                 'url'   => $monobankUrl->url,
                 'money' => $configMonobank['cashback_count'],
             ]);
         }
 
+        $keyboard = $showUrl
+            ? self::getKeyboard()
+            : self::getKeyboardWithUrl();
+
         $this->ask(
             $q,
             fn (Answer $a) => $this->runHandler($a),
-            ['parse_mode'  => 'markdown', ...self::getKeyboardWithUrl()->toArray()]
+            ['parse_mode'  => 'markdown', ...$keyboard->toArray()]
         );
     }
 
