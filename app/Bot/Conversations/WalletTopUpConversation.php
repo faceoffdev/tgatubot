@@ -54,9 +54,7 @@ class WalletTopUpConversation extends Conversation
             ]);
         }
 
-        $keyboard = $currentReferral
-            ? self::getKeyboard()
-            : self::getKeyboardWithUrl();
+        $keyboard = self::getKeyboard();
 
         $this->ask(
             $q,
