@@ -1,4 +1,4 @@
-FROM img.np-internal.ru/devops/docker-images/php-nginx:8.1
+FROM ghcr.io/faceoffdev/workspace/php-nginx:81
 
 COPY --chown=${USER}:${USER} .docker/web/rootfs /
 COPY --chown=${USER}:${USER} . ${WORKDIR}
