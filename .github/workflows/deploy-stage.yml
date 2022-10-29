@@ -3,7 +3,7 @@ on:
   - workflow_dispatch
 
 env:
-  PHP_REPO: ghcr.io/${{ github.repository }}/web-app
+  PHP_REPO: ghcr.io/${{ github.repository }}
   GIT_USER: faceoffdev
 
 jobs:
