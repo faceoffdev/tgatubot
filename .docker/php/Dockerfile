@@ -56,7 +56,7 @@ RUN apk add --no-cache --update \
 
 RUN apk add php81-pecl-grpc --repository=http://dl-cdn.alpinelinux.org/alpine/edge/testing
 
-COPY rootfs /
+COPY .docker/php/rootfs /
 
 ARG UID=1000
 ARG GID=1000
