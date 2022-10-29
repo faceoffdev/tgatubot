@@ -22,7 +22,7 @@ class SettingsConversation extends Conversation
 {
     public static function getKeyboard(Account $account)
     {
-        $actionLogin    = $account->login ? 'update' : 'set';
+        $actionLogin = $account->login ? 'update' : 'set';
         $actionPassword = $account->password ? 'update' : 'set';
 
         return (new Keyboard())

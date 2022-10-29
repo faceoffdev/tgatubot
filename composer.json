@@ -1,28 +1,33 @@
 {
-    "name": "faceoff/tgatubot",
+    "name": "faceoffdev/tgatubot",
     "type": "project",
-    "description": "Telegram tgatu bot",
+    "description": "Telegram ТГАТУ bot",
     "keywords": [
         "telegram",
         "bot",
-        "tgatubot"
+        "tgatubot",
+        "ТГАТУ"
     ],
     "license": "MIT",
     "repositories": [
         {
             "type": "vcs",
             "url": "https://github.com/faceoffdev/driver-telegram"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/faceoffdev/php-coding-style"
         }
     ],
     "require": {
         "php": "^8.1",
+        "ext-json": "*",
         "ext-mbstring": "*",
-        "botman/botman": "^2.6",
+        "botman/botman": "^2.7",
         "botman/driver-telegram": "dev-master",
         "fideloper/proxy": "^4.4",
-        "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.4",
-        "laravel/framework": "^8.89",
+        "laravel/framework": "^9.37",
         "netresearch/jsonmapper": "^4.0",
         "sentry/sentry-laravel": "^2.11",
         "staudenmeir/eloquent-json-relations": "^1.5",
@@ -30,16 +35,20 @@
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.12",
-        "facade/ignition": "^2.17",
-        "friendsofphp/php-cs-fixer": "^3.5",
-        "mockery/mockery": "^1.5",
-        "nunomaduro/collision": "^5.11",
+        "faceoffdev/php-coding-style": "dev-master",
+        "spatie/laravel-ignition": "^1.0",
+        "fzaninotto/faker": "^1.9",
+        "mockery/mockery": "^1.4",
+        "nunomaduro/collision": "^6.1",
         "phpunit/phpunit": "^9.5"
     },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "thecodingmachine/discovery": true
+        }
     },
     "extra": {
         "laravel": {
@@ -62,7 +71,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "scripts": {
-        "php-cs-fixer": "php-cs-fixer fix --diff --config=.php-cs-fixer.dist.php",
+        "php-cs-fixer": "pint -v --config vendor/faceoffdev/php-coding-style/pint.json",
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
@@ -72,6 +81,11 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "post-update-cmd": [
+            "Illuminate\\Foundation\\ComposerScripts::postUpdate",
+            "@php artisan ide-helper:generate",
+            "@php artisan ide-helper:meta"
         ]
     }
 }

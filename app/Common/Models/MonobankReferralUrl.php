@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|MonobankReferralUrl whereId($value)
  * @method static Builder|MonobankReferralUrl whereUrl($value)
  * @method static Builder|MonobankReferralUrl whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class MonobankReferralUrl extends BaseModel

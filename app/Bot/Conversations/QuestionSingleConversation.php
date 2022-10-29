@@ -32,10 +32,10 @@ class QuestionSingleConversation extends Conversation
 
     public function run()
     {
-        $keyboard  = new Keyboard();
+        $keyboard = new Keyboard();
         $paginator = $this->questionQueries->paginate($this->currentPage, ['id', 'name', 'price']);
-        $lastPage  = $paginator->lastPage();
-        $buttons   = [];
+        $lastPage = $paginator->lastPage();
+        $buttons = [];
 
         foreach ($paginator->items() as $item) {
             $name = array_key_exists($item->id, $this->selectedIds) ? "✅ {$item->name}" : $item->name;
@@ -80,9 +80,9 @@ class QuestionSingleConversation extends Conversation
                 $this->selectedIds[$value] = true;
             }
         } elseif ($value === 'prev') {
-            --$this->currentPage;
+            $this->currentPage--;
         } elseif ($value === 'next') {
-            ++$this->currentPage;
+            $this->currentPage++;
         } elseif ($value === 'pay') {
             $this->bot->startConversation(new OrderConversation(array_keys($this->selectedIds)));
 

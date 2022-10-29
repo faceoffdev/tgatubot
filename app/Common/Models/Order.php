@@ -34,6 +34,7 @@ use Staudenmeir\EloquentJsonRelations\Relations\BelongsToJson;
  * @method static Builder|Order whereStatus($value)
  * @method static Builder|Order whereUpdatedAt($value)
  * @method static Builder|Order whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Order extends BaseModel

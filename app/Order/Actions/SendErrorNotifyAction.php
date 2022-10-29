@@ -14,7 +14,8 @@ use Psr\Log\LoggerInterface;
 final class SendErrorNotifyAction
 {
     public const ALLOWED_CODES = [1, 2, 3, 4, 5, 6, 7];
-    public const REFUND_CODES  = [2, 5, 6, 7];
+
+    public const REFUND_CODES = [2, 5, 6, 7];
 
     private OrderQueries $orderQueries;
 
@@ -36,7 +37,7 @@ final class SendErrorNotifyAction
     public function execute(NotifyDTO $dto)
     {
         $order = $this->orderQueries->findById($dto->orderId, ['user_id', 'price']);
-        $text  = __('errors.order.notify', ['num' => $dto->orderId, 'message' => $this->getMessage($dto->code)]);
+        $text = __('errors.order.notify', ['num' => $dto->orderId, 'message' => $this->getMessage($dto->code)]);
 
         $this->orderCompletedAction->execute($dto->orderId);
 

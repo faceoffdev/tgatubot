@@ -38,7 +38,7 @@ class WalletWithdrawConversation extends Conversation
 
     public function run()
     {
-        $user             = Auth::user();
+        $user = Auth::user();
         $minWithdrawMoney = config('app.min_withdraw_money');
 
         if ($user->computedInfo->money <= ($minWithdrawMoney * 0.01 + 7)) {
@@ -71,7 +71,7 @@ class WalletWithdrawConversation extends Conversation
             return;
         }
 
-        $minWithdrawMoney    = config('app.min_withdraw_money');
+        $minWithdrawMoney = config('app.min_withdraw_money');
         $this->withdrawMoney = floatval($answer->getText());
 
         if ($this->withdrawMoney < config('app.min_withdraw_money')) {
@@ -103,7 +103,7 @@ class WalletWithdrawConversation extends Conversation
     private function cardHandler(Answer $answer)
     {
         if (!$answer->isInteractiveMessageReply()) {
-            $card       = $answer->getText();
+            $card = $answer->getText();
             $commission = $this->getCommission();
 
             if ($id = (new WithdrawMoneyAction())->execute(Auth::id(), $card, $this->withdrawMoney, $commission)) {

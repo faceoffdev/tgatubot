@@ -29,9 +29,9 @@ class OrderPresenter
 
         $this->processingAction->execute($order->id);
 
-        $resource            = new OrderResource();
-        $resource->id        = $order->id;
-        $resource->user      = new UserResource($order->account->login, $order->account->password);
+        $resource = new OrderResource();
+        $resource->id = $order->id;
+        $resource->user = new UserResource($order->account->login, $order->account->password);
         $resource->questions = $order->questions()
             ->orderBy('sort')
             ->get(['id', 'delay'])

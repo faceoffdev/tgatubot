@@ -37,6 +37,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static Builder|User whereName($value)
  * @method static Builder|User whereRegisteredAt($value)
  * @method static Builder|User whereUsername($value)
+ *
  * @mixin \Eloquent
  */
 class User extends BaseModel implements Authenticatable

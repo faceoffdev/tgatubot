@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|UserComputedInfo whereId($value)
  * @method static Builder|UserComputedInfo whereMoney($value)
  * @method static Builder|UserComputedInfo whereMoneyFromReferrals($value)
+ *
  * @mixin \Eloquent
  */
 class UserComputedInfo extends BaseModel

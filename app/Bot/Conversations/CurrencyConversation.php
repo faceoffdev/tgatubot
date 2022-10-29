@@ -10,7 +10,8 @@ class CurrencyConversation extends Conversation
 {
     public const MIN_FIAT_AMOUNT = 1000;
 
-    public const BOT_PERCENT        = 1;
+    public const BOT_PERCENT = 1;
+
     public const MIN_PROFIT_PERCENT = 14;
 
     private Client $client;
@@ -22,12 +23,12 @@ class CurrencyConversation extends Conversation
 
     public function run()
     {
-        $tonCurrency  = $this->tonCurrency();
+        $tonCurrency = $this->tonCurrency();
         $cryptoAmount = $this->cryptoAmount();
 
-        $minProfitPercent       = self::MIN_PROFIT_PERCENT;
+        $minProfitPercent = self::MIN_PROFIT_PERCENT;
         $cryptoAmountWithProfit = round($tonCurrency + ($tonCurrency * ($minProfitPercent / 100)), 2);
-        $profit                 = round(($cryptoAmountWithProfit - $cryptoAmountWithProfit * (self::BOT_PERCENT / 100)) - $cryptoAmount, 2);
+        $profit = round(($cryptoAmountWithProfit - $cryptoAmountWithProfit * (self::BOT_PERCENT / 100)) - $cryptoAmount, 2);
 
         $this->say(
             "Продажа по *$cryptoAmountWithProfit* RUB ($minProfitPercent%) принесет *$profit* RUB за 1 TON" . PHP_EOL . PHP_EOL
@@ -55,7 +56,7 @@ class CurrencyConversation extends Conversation
 
     private function tonCurrency(): float
     {
-        $id       = 'the-open-network';
+        $id = 'the-open-network';
         $currency = 'rub';
 
         $response = $this->client->get('https://api.coingecko.com/api/v3/simple/price', [

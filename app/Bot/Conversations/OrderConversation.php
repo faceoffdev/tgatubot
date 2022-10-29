@@ -33,8 +33,8 @@ class OrderConversation extends Conversation
     public function run()
     {
         $questionHelper = app(QuestionHelper::class);
-        $questions      = (new QuestionQueries())->findByIds($this->questionIds, ['id', 'name', 'price']);
-        $price          = $questions->sum('price');
+        $questions = (new QuestionQueries())->findByIds($this->questionIds, ['id', 'name', 'price']);
+        $price = $questions->sum('price');
 
         if ($this->discount) {
             $price -= round(($this->discount / 100) * $price, 2);
@@ -71,7 +71,7 @@ class OrderConversation extends Conversation
             return;
         }
 
-        $user           = Auth::user();
+        $user = Auth::user();
         $accountQueries = new AccountQueries();
 
         if ($accountQueries->notExistsLoginOrPassword($user->id)) {

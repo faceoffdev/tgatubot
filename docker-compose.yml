@@ -10,16 +10,10 @@ networks:
 
 services:
   app:
-    build:
-      context: .
-      dockerfile: ./.docker/php/Dockerfile
+    image: ghcr.io/faceoffdev/workspace/php-nginx:81-dev
     environment:
       - PHP_OPCACHE_MEMORY_CONSUMPTION=128
       - PHP_OPCACHE_INTERNED_STRINGS_BUFFER=16
-      - PHP_OPCACHE_VALIDATE_TIMESTAMPS=1
-      - PHP_FPM_TYPE=ondemand
-      - PHP_FPM_MAX_CHILDREN=100
-      - PHP_FPM_MAX_REQUESTS=1000
     restart: always
     pull_policy: always
     networks:

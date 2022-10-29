@@ -51,7 +51,7 @@ class EventServiceProvider extends ServiceProvider
             }
 
             $time = $queryExecuted->time / 1000;
-            Log::channel('sql')->debug("({$time}): {$sql}");
+            //Log::channel('sql')->debug("({$time}): {$sql}");
         });
     }
 }

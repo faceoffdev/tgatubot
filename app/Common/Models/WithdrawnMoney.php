@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|WithdrawnMoney whereId($value)
  * @method static Builder|WithdrawnMoney whereMoney($value)
  * @method static Builder|WithdrawnMoney whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class WithdrawnMoney extends BaseModel

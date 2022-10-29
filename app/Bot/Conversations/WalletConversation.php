@@ -25,7 +25,7 @@ class WalletConversation extends Conversation
 
     public function run()
     {
-        $user      = Auth::user();
+        $user = Auth::user();
         $withdraws = (new WithdrawnMoneyQueries())->getByUserId($user->id);
 
         $question = __('questions.wallet.balance', ['money' => $user->computedInfo->money]);

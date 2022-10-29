@@ -29,9 +29,9 @@ class MessengerGuard implements Guard
      */
     public function __construct(UserProvider $provider, Request $request)
     {
-        $this->request  = $request;
+        $this->request = $request;
         $this->provider = $provider;
-        $this->user     = null;
+        $this->user = null;
     }
 
     public function check(): bool
@@ -92,5 +92,10 @@ class MessengerGuard implements Guard
         }
 
         return null;
+    }
+
+    public function hasUser(): bool
+    {
+        return $this->user !== null;
     }
 }

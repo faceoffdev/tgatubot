@@ -31,6 +31,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|Question wherePrice($value)
  * @method static Builder|Question whereSemester($value)
  * @method static Builder|Question whereSort($value)
+ *
  * @mixin \Eloquent
  */
 class Question extends BaseModel

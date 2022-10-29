@@ -36,9 +36,9 @@ class WalletTopUpConversation extends Conversation
 
     public function run()
     {
-        $userId         = (int) Auth::id();
+        $userId = (int) Auth::id();
         $configMonobank = config('services.monobank');
-        $monobankUrl    = (new MonobankReferralUrlQueries())->getLastUrl();
+        $monobankUrl = (new MonobankReferralUrlQueries())->getLastUrl();
 
         $showUrl = (int) $monobankUrl->user_id !== $userId;
 
@@ -77,7 +77,7 @@ class WalletTopUpConversation extends Conversation
 
     public function askPayUrl(?string $callbackId = null)
     {
-        $user  = Auth::user();
+        $user = Auth::user();
         $price = config('app.price_pay_ref_url');
 
         if ($user->computedInfo->money < $price) {

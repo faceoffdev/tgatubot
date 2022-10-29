@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|Account whereLogin($value)
  * @method static Builder|Account wherePassword($value)
  * @method static Builder|Account whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Account extends BaseModel

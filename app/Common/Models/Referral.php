@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @method static Builder|Referral query()
  * @method static Builder|Referral whereReferralId($value)
  * @method static Builder|Referral whereReferrerId($value)
+ *
  * @mixin \Eloquent
  */
 class Referral extends BaseModel
