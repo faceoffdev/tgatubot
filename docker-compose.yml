@@ -24,4 +24,4 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.tgatubot.rule=HostRegexp(`{host:(^tgatubot.+)}`)
-      - traefik.http.services.tgatubot.loadbalancer.server.port=80
+      - traefik.http.services.tgatubot.loadbalancer.server.port=8080
