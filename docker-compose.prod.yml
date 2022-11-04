@@ -1,0 +1,29 @@
+version: '3.9'
+
+networks:
+  proxy:
+    name: proxy
+    external: true
+  workspace:
+    name: workspace
+    external: true
+
+services:
+  app:
+    image: ghcr.io/faceoffdev/workspace/php-nginx:81
+    restart: always
+    pull_policy: always
+    environment:
+      - PHP_FPM_TYPE=static
+      - PHP_FPM_MAX_CHILDREN=5
+      - PHP_OPCACHE_MEMORY_CONSUMPTION=128
+      - PHP_OPCACHE_INTERNED_STRINGS_BUFFER=16
+    networks:
+      - workspace
+      - proxy
+    volumes:
+      - ./:/app
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.tgatubot.rule=HostRegexp(`tgatubot.{host:.+}`)
+      - traefik.http.services.tgatubot.loadbalancer.server.port=8080
