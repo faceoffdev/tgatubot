@@ -40,14 +40,14 @@ class WalletTopUpConversation extends Conversation
         $configMonobank = config('services.monobank');
         $monobankUrl = (new MonobankReferralUrlQueries())->getLastUrl();
 
-        $showUrl = (int) $monobankUrl->user_id !== $userId;
+        $showUrl = (int) $monobankUrl?->user_id !== $userId;
 
         $q = __('questions.wallet.top_up', [
             'send_url' => $configMonobank['send_url'],
             'id'       => $userId,
         ]);
 
-        if ($showUrl && $monobankUrl->url) {
+        if ($showUrl && $monobankUrl?->url) {
             $q .= __('questions.wallet.sponsor', [
                 'url'   => $monobankUrl->url,
                 'money' => $configMonobank['cashback_count'],
