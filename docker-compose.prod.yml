@@ -26,6 +26,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.routers.tgatubot.rule=HostRegexp(`tgatubot.{host:.+}`)
-      - traefik.http.routers.tgatubot.entrypoints=websecure
+      - traefik.http.routers.tgatubot.tls=true
       - traefik.http.routers.tgatubot.tls.certresolver=letsencrypt
+      - traefik.http.routers.tgatubot.tls.domains[0].main=fluxmaster.ru
       - traefik.http.services.tgatubot.loadbalancer.server.port=8080
