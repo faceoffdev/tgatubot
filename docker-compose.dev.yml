@@ -11,11 +11,11 @@ networks:
 services:
   app:
     image: ghcr.io/faceoffdev/workspace/php-nginx:81-dev
+    restart: always
+    pull_policy: always
     environment:
       - PHP_OPCACHE_MEMORY_CONSUMPTION=128
       - PHP_OPCACHE_INTERNED_STRINGS_BUFFER=16
-    restart: always
-    pull_policy: always
     networks:
       - workspace
       - proxy

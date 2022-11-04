@@ -2,7 +2,7 @@ share:
 	ngrok http 80 --region=eu --host-header=tgatubot.loc
 
 dev:
-	docker compose up -d -f docker.compose.dev.yml
+	docker compose -f docker.compose.dev.yml up -d app
 
 prod:
-	docker compose up -d -f docker.compose.prod.yml
+	docker compose -f docker.compose.prod.yml up -d
