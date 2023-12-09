@@ -2,6 +2,7 @@
 
 namespace App\Bot\Controllers;
 
+use Illuminate\Support\Facades\Log;
 use function app;
 use App\Bot\Actions\RegistrationAction;
 use App\Bot\Conversations\MainConversation;
@@ -13,9 +14,13 @@ class BotManController extends BaseController
 {
     public function handle(): void
     {
-        $botman = app('botman');
+        try {
+            $botman = app('botman');
 
-        $botman->listen();
+            $botman->listen();
+        } catch (\Throwable $e) {
+            Log::error($e->getMessage(), ['trace' => $e->getTrace()]);
+        }
     }
 
     public function startConversation(BotMan $bot, ?int $referralId = null): void
