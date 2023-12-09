@@ -40,6 +40,8 @@ class OrderConversation extends Conversation
             $price -= round(($this->discount / 100) * $price, 2);
         }
 
+        $price = round($price, 2);
+
         $text = '';
 
         foreach ($questions as $question) {
