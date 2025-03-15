@@ -12,6 +12,7 @@ use BotMan\BotMan\Messages\Conversations\Conversation;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\Drivers\Telegram\Extensions\Keyboard;
 use BotMan\Drivers\Telegram\Extensions\KeyboardButton;
+use BotMan\Drivers\Telegram\TelegramDriver;
 use Illuminate\Support\Facades\Auth;
 use Psr\Log\LoggerInterface;
 
@@ -108,7 +109,10 @@ class OrderConversation extends Conversation
             ->toArray();
 
         if ($orderId) {
-            $this->bot->reply(__('success.order.create', ['num' => $orderId]), $params);
+            $text = __('success.order.create', ['num' => $orderId]);
+
+            $this->bot->reply($text, ['num' => $orderId], $params);
+            $this->bot->say($text, config('botman.telegram.info'), TelegramDriver::class);
         } else {
             $this->bot->reply(__('errors.order.create'), $params);
         }
