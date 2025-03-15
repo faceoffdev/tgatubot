@@ -5,5 +5,6 @@ set -e
 
 # optimize
 php artisan optimize --no-interaction
+rm -rf bootstrap/cache/routes*
 
 exec "$@"
